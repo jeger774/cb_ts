@@ -134,58 +134,64 @@ const Charts = () => {
     },
   };
 
+  const SearchHeader = () => {
+    return (
+      <Block flex={0} row color={colors.card} padding={sizes.padding}>
+        <Input
+          flex={1}
+          color={colors.searchbar}
+          search
+          placeholder={'Search'}
+          onSubmitEditing={(event) => {
+            setQuery(event.nativeEvent.text);
+          }}
+        />
+        <Button
+          color={colors.primary}
+          radius={10}
+          width={100}
+          marginLeft={sizes.s}
+          onPress={() => setDaysModal(true)}>
+          <Block row align="center">
+            <Text white semibold transform="uppercase" marginRight={sizes.s}>
+              {days} day(s)
+            </Text>
+            <Image
+              source={assets.arrow}
+              color={colors.white}
+              transform={[{ rotate: '90deg' }]}
+            />
+          </Block>
+        </Button>
+        <Modal
+          visible={showDaysModal}
+          onRequestClose={() => setDaysModal(false)}>
+          <FlatList
+            keyExtractor={(index) => `${index}`}
+            data={[1, 2, 3, 4, 5]}
+            renderItem={({ item }) => (
+              <Button
+                marginBottom={sizes.sm}
+                onPress={() => {
+                  setDays(item);
+                  setDaysModal(false);
+                }}>
+                <Text p white semibold transform="uppercase">
+                  {item}
+                </Text>
+              </Button>
+            )}
+          />
+        </Modal>
+      </Block>
+    );
+  };
+
   if (query === '') {
     return (
       <Block>
-        {/* search input */}
-        <Block flex={0} row color={colors.card} padding={sizes.padding}>
-          <Input
-            flex={1}
-            color={colors.searchbar}
-            search
-            placeholder={'Search'}
-            onSubmitEditing={(event) => {
-              setQuery(event.nativeEvent.text);
-            }}
-          />
-          <Button
-            color={colors.primary}
-            radius={10}
-            width={100}
-            marginLeft={sizes.s}
-            onPress={() => setDaysModal(true)}>
-            <Block row align="center">
-              <Text white semibold transform="uppercase" marginRight={sizes.s}>
-                {days} day(s)
-              </Text>
-              <Image
-                source={assets.arrow}
-                color={colors.white}
-                transform={[{ rotate: '90deg' }]}
-              />
-            </Block>
-          </Button>
-          <Modal
-            visible={showDaysModal}
-            onRequestClose={() => setDaysModal(false)}>
-            <FlatList
-              keyExtractor={(index) => `${index}`}
-              data={[1, 2, 3, 4, 5]}
-              renderItem={({ item }) => (
-                <Button
-                  marginBottom={sizes.sm}
-                  onPress={() => {
-                    setDays(item);
-                    setDaysModal(false);
-                  }}>
-                  <Text p white semibold transform="uppercase">
-                    {item}
-                  </Text>
-                </Button>
-              )}
-            />
-          </Modal>
-        </Block>
+        <SearchHeader />
+
         <Block flex={1} center>
           <Text h4 center semibold marginBottom={sizes.m}>
             Search for an item...
@@ -193,59 +199,11 @@ const Charts = () => {
         </Block>
       </Block>
     );
-  }
-  if (invalid) {
+  } else if (invalid) {
     return (
       <Block>
-        {/* search input */}
-        <Block flex={0} row color={colors.card} padding={sizes.padding}>
-          <Input
-            flex={1}
-            color={colors.searchbar}
-            search
-            placeholder={'Search'}
-            onSubmitEditing={(event) => {
-              setQuery(event.nativeEvent.text);
-            }}
-          />
-          <Button
-            color={colors.primary}
-            radius={10}
-            width={100}
-            marginLeft={sizes.s}
-            onPress={() => setDaysModal(true)}>
-            <Block row align="center">
-              <Text white semibold transform="uppercase" marginRight={sizes.s}>
-                {days} day(s)
-              </Text>
-              <Image
-                source={assets.arrow}
-                color={colors.white}
-                transform={[{ rotate: '90deg' }]}
-              />
-            </Block>
-          </Button>
-          <Modal
-            visible={showDaysModal}
-            onRequestClose={() => setDaysModal(false)}>
-            <FlatList
-              keyExtractor={(index) => `${index}`}
-              data={[1, 2, 3, 4, 5]}
-              renderItem={({ item }) => (
-                <Button
-                  marginBottom={sizes.sm}
-                  onPress={() => {
-                    setDays(item);
-                    setDaysModal(false);
-                  }}>
-                  <Text p white semibold transform="uppercase">
-                    {item}
-                  </Text>
-                </Button>
-              )}
-            />
-          </Modal>
-        </Block>
+        <SearchHeader />
+
         <Block flex={1} center>
           <Text h4 center semibold marginBottom={sizes.m}>
             Item not found!
@@ -256,55 +214,8 @@ const Charts = () => {
   } else if (isLoading) {
     return (
       <Block>
-        {/* search input */}
-        <Block flex={0} row color={colors.card} padding={sizes.padding}>
-          <Input
-            flex={1}
-            color={colors.searchbar}
-            search
-            placeholder={'Search'}
-            onSubmitEditing={(event) => {
-              setQuery(event.nativeEvent.text);
-            }}
-          />
-          <Button
-            color={colors.primary}
-            radius={10}
-            width={100}
-            marginLeft={sizes.s}
-            onPress={() => setDaysModal(true)}>
-            <Block row align="center">
-              <Text white semibold transform="uppercase" marginRight={sizes.s}>
-                {days} day(s)
-              </Text>
-              <Image
-                source={assets.arrow}
-                color={colors.white}
-                transform={[{ rotate: '90deg' }]}
-              />
-            </Block>
-          </Button>
-          <Modal
-            visible={showDaysModal}
-            onRequestClose={() => setDaysModal(false)}>
-            <FlatList
-              keyExtractor={(index) => `${index}`}
-              data={[1, 2, 3, 4, 5]}
-              renderItem={({ item }) => (
-                <Button
-                  marginBottom={sizes.sm}
-                  onPress={() => {
-                    setDays(item);
-                    setDaysModal(false);
-                  }}>
-                  <Text p white semibold transform="uppercase">
-                    {item}
-                  </Text>
-                </Button>
-              )}
-            />
-          </Modal>
-        </Block>
+        <SearchHeader />
+
         <Block flex={1} center paddingBottom={sizes.xxl}>
           <ActivityIndicator size="large" color="#EC9602" />
         </Block>
@@ -313,57 +224,7 @@ const Charts = () => {
   } else if (!invalid && query !== '' && queryData) {
     return (
       <Block>
-        {/* search input */}
-        <Block flex={0} row color={colors.card} padding={sizes.padding}>
-          <Input
-            flex={1}
-            color={colors.searchbar}
-            search
-            placeholder={'Search'}
-            onSubmitEditing={(event) => {
-              setQuery(event.nativeEvent.text);
-            }}
-          />
-          <Button
-            color={colors.primary}
-            radius={10}
-            width={100}
-            marginLeft={sizes.s}
-            onPress={() => {
-              setDaysModal(true);
-            }}>
-            <Block row align="center">
-              <Text white semibold transform="uppercase" marginRight={sizes.s}>
-                {days} day(s)
-              </Text>
-              <Image
-                source={assets.arrow}
-                color={colors.white}
-                transform={[{ rotate: '90deg' }]}
-              />
-            </Block>
-          </Button>
-          <Modal
-            visible={showDaysModal}
-            onRequestClose={() => setDaysModal(false)}>
-            <FlatList
-              keyExtractor={(index) => `${index}`}
-              data={[1, 2, 3, 4, 5]}
-              renderItem={({ item }) => (
-                <Button
-                  marginBottom={sizes.sm}
-                  onPress={() => {
-                    setDays(item);
-                    setDaysModal(false);
-                  }}>
-                  <Text p white semibold transform="uppercase">
-                    {item}
-                  </Text>
-                </Button>
-              )}
-            />
-          </Modal>
-        </Block>
+        <SearchHeader />
 
         {/* price charts */}
         <Block scroll color="#202020" showsVerticalScrollIndicator={false}>
@@ -445,6 +306,8 @@ const Charts = () => {
         </Block>
       </Block>
     );
+  } else {
+    return <SearchHeader />;
   }
 };
 
