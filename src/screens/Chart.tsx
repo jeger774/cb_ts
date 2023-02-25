@@ -191,7 +191,6 @@ const Charts = () => {
     return (
       <Block>
         <SearchHeader />
-
         <Block flex={1} center>
           <Text h4 center semibold marginBottom={sizes.m}>
             Search for an item...
@@ -227,7 +226,7 @@ const Charts = () => {
         <SearchHeader />
 
         {/* price charts */}
-        <Block scroll color="#202020" showsVerticalScrollIndicator={false}>
+        <Block scroll color="#202020" showsVerticalScrollIndicator={true}>
           <Text
             h5
             semibold

@@ -33,8 +33,7 @@ export default () => {
         <Image source={icons.menu} radius={0} color={colors.icon} />
       </Button>
     ),
-    headerRight: () => {
-      /*(
+    headerRight: () => (
       <Block row flex={0} align="center">
         <TouchableOpacity
           style={{ marginRight: sizes.sm }}
@@ -44,19 +43,9 @@ export default () => {
             })
           }>
           <Image source={icons.bell} radius={0} color={colors.white} />
-          <Block
-            flex={0}
-            right={0}
-            width={sizes.s}
-            height={sizes.s}
-            radius={sizes.xs}
-            position="absolute"
-            color={colors?.notif}
-          />
         </TouchableOpacity>
       </Block>
-        ),*/
-    },
+    ),
   } as StackHeaderOptions;
 
   const options = {
@@ -68,7 +57,19 @@ export default () => {
           {'Components'}
         </Text>
       ),
-      headerRight: () => null,
+      headerRight: () => (
+        <Block row flex={0} align="center">
+          <TouchableOpacity
+            style={{ marginRight: sizes.sm }}
+            onPress={() =>
+              navigation.navigate('Screens', {
+                screen: 'Notifications',
+              })
+            }>
+            <Image source={icons.bell} radius={0} color={colors.white} />
+          </TouchableOpacity>
+        </Block>
+      ),
       headerLeft: () => (
         <Button
           onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
@@ -79,7 +80,19 @@ export default () => {
 
     back: {
       ...menu,
-      headerRight: () => null,
+      headerRight: () => (
+        <Block row flex={0} align="center">
+          <TouchableOpacity
+            style={{ marginRight: sizes.sm }}
+            onPress={() =>
+              navigation.navigate('Screens', {
+                screen: 'Notifications',
+              })
+            }>
+            <Image source={icons.bell} radius={0} color={colors.white} />
+          </TouchableOpacity>
+        </Block>
+      ),
       headerLeft: () => (
         <Button onPress={() => navigation.goBack()}>
           <Image

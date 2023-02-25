@@ -6,9 +6,8 @@ import Text from './Text';
 import { IAuction } from '../constants/types';
 import { useTheme } from '../hooks';
 
-const Auction = ({ image, title, price, user, quality }: IAuction) => {
+const Auction = ({ image, title, quantity, price, quality }: IAuction) => {
   const { icons, sizes } = useTheme();
-
   const CARD_WIDTH = (sizes.width - sizes.padding * 2 - sizes.sm) / 2;
 
   let nameColor = '#A0A0A0';
@@ -54,32 +53,20 @@ const Auction = ({ image, title, price, user, quality }: IAuction) => {
           borderWidth: 1,
         }}
       />
-      <Block flex={1} justify="space-between" paddingLeft={sizes.s}>
+      <Text bold position="absolute" marginLeft={15} marginTop={60}>
+        {quantity === 1 ? '' : quantity}
+      </Text>
+      <Block flex={1} justify="center" paddingLeft={sizes.s}>
         <Text h5 bold color={nameColor}>
           {title}
         </Text>
-        <Text
-          p
-          size={sizes.s + 5}
-          marginBottom={-sizes.xs}
-          marginTop={-sizes.xs}>
-          Bid: {price}{' '}
-          <Image source={icons.gold} style={{ height: 12, width: 12 }} />{' '}
-          {price}{' '}
-          <Image source={icons.silver} style={{ height: 12, width: 12 }} />{' '}
-          {price}{' '}
-          <Image source={icons.copper} style={{ height: 12, width: 12 }} />
-        </Text>
         <Text p>
-          Buyout: {price}{' '}
+          Buyout: {Math.floor(price / 10000)}{' '}
           <Image source={icons.gold} style={{ height: 16, width: 16 }} />{' '}
-          {price}{' '}
+          {Math.floor((price % 10000) / 100)}{' '}
           <Image source={icons.silver} style={{ height: 16, width: 16 }} />{' '}
-          {price}{' '}
+          {(price % 10000) % 100}{' '}
           <Image source={icons.copper} style={{ height: 16, width: 16 }} />
-        </Text>
-        <Text p color={'#A0A0A0'}>
-          Seller: {user?.name}
         </Text>
       </Block>
     </Block>

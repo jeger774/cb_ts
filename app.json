@@ -25,7 +25,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"
-      }
+      },
+      "package": "com.jeger774.classicbuddy"
     },
     "web": {
       "favicon": "./assets/favicon.png"

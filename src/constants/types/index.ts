@@ -3,17 +3,12 @@ import { ITheme } from './theme';
 export * from './components';
 export * from './theme';
 
-export interface IUser {
-  name: string;
-}
-
 export interface IAuction {
-  id: number;
   title: string;
+  quantity: number;
   price: number;
   quality: number;
-  user: IUser;
-  image?: string;
+  image: string;
 }
 
 export interface IAuctions {
@@ -23,18 +18,25 @@ export interface IAuctions {
   noItems: number;
 }
 
+export interface IApiResponse {
+  id: number;
+  itemId: number;
+  buyout: number;
+  quantity: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface IUseData {
   theme: ITheme;
   setTheme: (theme?: ITheme) => void;
-  auctions: IAuction[];
-  setAuctions: (data?: IAuction[]) => void;
-  notifications: INotification[];
-  handleNotifications: (data?: INotification[]) => void;
+  notification: INotification[];
+  handleNotification: (data?: INotification[]) => void;
 }
 
 export interface INotification {
-  id?: number;
+  id: number;
   subject: string;
   message: string;
-  createdAt?: number | Date;
+  //createdAt?: Date;
 }
