@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Platform, FlatList } from 'react-native';
 import { useNavigation, useNavigationState } from '@react-navigation/core';
 import { Block, Button, Image, Text, Modal } from '../components';
 import { useTheme } from '../hooks';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { activeScreen } from '../states/ScreenState';
+import { SafeAreaView, useWindowDimensions } from 'react-native';
+import { regionState, realmState, factionState } from '../states/SettingsAtoms';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { IRealmData } from '../constants/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isAndroid = Platform.OS === 'android';
@@ -15,13 +19,29 @@ const Settings = () => {
   const [showRegionModal, setRegionModal] = useState(false);
   const [showRealmModal, setRealmModal] = useState(false);
   const [showFactionModal, setFactionModal] = useState(false);
-  const [region, setRegion] = useState<string>('EU');
-  const [realm, setRealm] = useState<string>('Thekal');
-  const [faction, setFaction] = useState<string>('Alliance');
+  const [region, setRegion] = useRecoilState(regionState);
+  const [realm, setRealm] = useRecoilState(realmState);
+  const [faction, setFaction] = useRecoilState(factionState);
   const setActiveRoute = useSetRecoilState(activeScreen);
   const previousRoute = useNavigationState(
     (state) => state.routes[state.routes.length - 2]?.name,
   );
+  const [data, setData] = useState<string[]>([]);
+  const { height } = useWindowDimensions();
+  const safeAreaHeight = height / 2;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `http://jeger.co.hu:8080/json/${region}_realm_data.json`,
+      );
+      const json: Record<string, IRealmData> = await response.json();
+      const names = Object.values(json).map((entry) => entry.name);
+      setData(names);
+    };
+
+    fetchData();
+  }, [region]);
 
   return (
     <Block safe marginTop={sizes.md}>
@@ -148,25 +168,27 @@ const Settings = () => {
         <Modal
           visible={showRealmModal}
           onRequestClose={() => setRealmModal(false)}>
-          <FlatList
-            keyExtractor={(index) => `${index}`}
-            data={['Thekal', 'Golemagg', 'Azshara', 'MirageRaceway', 'Jindo']}
-            renderItem={({ item }) => (
-              <Button
-                marginBottom={sizes.sm}
-                onPress={() => {
-                  setRealm(item);
-                  setRealmModal(false);
-                }}>
-                <Text p white semibold transform="uppercase">
-                  {item}
-                </Text>
-              </Button>
-            )}
-          />
+          <SafeAreaView style={{ height: safeAreaHeight }}>
+            <FlatList
+              keyExtractor={(index) => `${index}`}
+              data={data}
+              renderItem={({ item }) => (
+                <Button
+                  marginBottom={sizes.sm}
+                  onPress={() => {
+                    setRealm(item);
+                    setRealmModal(false);
+                  }}>
+                  <Text p white semibold transform="uppercase">
+                    {item}
+                  </Text>
+                </Button>
+              )}
+            />
+          </SafeAreaView>
         </Modal>
 
-        {/* Realm selection */}
+        {/* Faction selection */}
         <Text
           white
           bold

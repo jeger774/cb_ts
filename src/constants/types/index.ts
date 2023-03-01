@@ -4,6 +4,7 @@ export * from './components';
 export * from './theme';
 
 export interface IAuction {
+  id: number;
   title: string;
   quantity: number;
   price: number;
@@ -30,6 +31,8 @@ export interface IApiResponse {
 export interface IUseData {
   theme: ITheme;
   setTheme: (theme?: ITheme) => void;
+  notifications: INotification[];
+  setNotifications: (data?: INotification[]) => void;
   notification: INotification[];
   handleNotification: (data?: INotification[]) => void;
 }
@@ -39,4 +42,9 @@ export interface INotification {
   subject: string;
   message: string;
   //createdAt?: Date;
+}
+
+export interface IRealmData {
+  name: string;
+  id: number;
 }

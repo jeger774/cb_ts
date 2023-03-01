@@ -14,11 +14,9 @@ const Auction = ({ id, subject, message }: INotification) => {
       card
       flex={0}
       row={true}
-      marginBottom={sizes.s}
-      paddingLeft={sizes.s}
-      paddingRight={sizes.xs}
-      left={-sizes.sm}
-      width={CARD_WIDTH * 2.2 + sizes.sm}
+      marginBottom={sizes.sm}
+      paddingHorizontal={sizes.s}
+      width={CARD_WIDTH * 2 + sizes.sm}
       style={{ borderColor: '#A0A0A0', borderWidth: 0.2 }}>
       <Block flex={1} justify="center" paddingLeft={sizes.s}>
         <Text>{id}</Text>

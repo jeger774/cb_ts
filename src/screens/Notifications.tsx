@@ -12,9 +12,9 @@ const Notifications = () => {
   const previousRoute = useNavigationState(
     (state) => state.routes[state.routes.length - 2]?.name,
   );
-  const { notification } = useData();
+  const { notifications } = useData();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [notif, setNotif] = useState(notification);
+  const [notif, setNotif] = useState(notifications);
 
   return (
     <Block safe marginTop={sizes.md}>
@@ -47,17 +47,17 @@ const Notifications = () => {
             </Text>
           </Block>
         </Block>
-        <Block
-          flex={1}
-          scroll
-          paddingHorizontal={sizes.padding}
-          showsVerticalScrollIndicator={true}
-          contentContainerStyle={{ paddingBottom: sizes.l }}>
-          <Block justify="space-between" marginTop={sizes.sm}>
-            {notif?.map((notifItem) => (
-              <Notification {...notifItem} />
-            ))}
-          </Block>
+      </Block>
+      <Block
+        scroll
+        flex={1}
+        paddingHorizontal={sizes.padding}
+        marginTop={-550}
+        showsVerticalScrollIndicator={false}>
+        <Block justify="space-between" marginTop={sizes.sm}>
+          {notif?.map((notifItem) => (
+            <Notification {...notifItem} key={`card-${notifItem?.id}`} />
+          ))}
         </Block>
       </Block>
     </Block>

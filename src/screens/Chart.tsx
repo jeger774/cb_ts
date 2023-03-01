@@ -1,15 +1,23 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState, useMemo } from 'react';
 import { ActivityIndicator, Dimensions, FlatList } from 'react-native';
 import { useTheme } from '../hooks/';
 import { Block, Input, Modal, Text, Image, Button } from '../components/';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { IAuctions } from '../constants/types';
+import { IAuctions, IRealmData } from '../constants/types';
 import { LineChart } from 'react-native-chart-kit';
 import { DOMParser } from 'xmldom';
+import { regionState, realmState, factionState } from '../states/SettingsAtoms';
+import { useRecoilValue } from 'recoil';
 
-const getItemData = async (days: number, id: number, quantity: number) => {
+const getItemData = async (
+  days: number,
+  id: number,
+  realm: number,
+  faction: number,
+  region: string,
+) => {
   const data = await fetch(
-    `http://jeger.co.hu:6555/item?days=${days}&id=${id}&quantity=${quantity}`,
+    `http://jeger.co.hu:6555/item?id=${id}&days=${days}&realm=${realm}&faction=${faction}&region=${region}`,
   );
   try {
     //console.log(data.status);
@@ -29,10 +37,29 @@ const Charts = () => {
   const [days, setDays] = useState<number>(1);
   const [showDaysModal, setDaysModal] = useState(false);
   const { assets, colors, sizes } = useTheme();
-  const quantity = 1;
   const [id, setId] = useState<number>(0);
   const [invalid, setInvalid] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const region = useRecoilValue(regionState);
+  const realmName = useRecoilValue(realmState);
+  const faction = useRecoilValue(factionState) === 'Alliance' ? 2 : 6;
+  const [realmId, setRealmId] = useState<number>(4815);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `http://jeger.co.hu:8080/json/${region}_realm_data.json`,
+      );
+      const json: Record<string, IRealmData> = await response.json();
+      const matchingEntry = Object.entries(json).find(
+        ([key, entry]) => entry.name === realmName,
+      );
+      if (matchingEntry) {
+        setRealmId(matchingEntry[1].id);
+      }
+    };
+    fetchData();
+  }, [realmName, region]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,15 +101,18 @@ const Charts = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getItemData(days, id, quantity)
+    getItemData(days, id, realmId, faction, region)
       .then((result) => {
         setQueryData(result);
+        if (result.length < 1) {
+          setInvalid(true);
+        }
         setIsLoading(false);
       })
       .catch((error) => {
         console.log('USEEFFECT', error);
       });
-  }, [days, id]);
+  }, [days, id, faction, realmId, region]);
 
   const numberOfItemsData = useMemo(
     () => [
@@ -250,7 +280,7 @@ const Charts = () => {
             height={250}
             chartConfig={chartConfig}
             verticalLabelRotation={90}
-            style={{ paddingBottom: 40 }}
+            style={{ paddingBottom: 45 }}
           />
           <Text
             h5
@@ -275,7 +305,7 @@ const Charts = () => {
             height={250}
             chartConfig={chartConfig}
             verticalLabelRotation={90}
-            style={{ paddingBottom: 40 }}
+            style={{ paddingBottom: 45 }}
           />
           <Text
             h5
@@ -300,7 +330,7 @@ const Charts = () => {
             height={250}
             chartConfig={chartConfig}
             verticalLabelRotation={90}
-            style={{ paddingBottom: 40 }}
+            style={{ paddingBottom: 45 }}
           />
         </Block>
       </Block>

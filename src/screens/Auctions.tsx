@@ -10,13 +10,21 @@ import {
   Modal,
   Image,
 } from '../components';
-import { IAuction, IApiResponse } from '../constants/types';
+import { IAuction, IApiResponse, IRealmData } from '../constants/types';
 import { ActivityIndicator, FlatList } from 'react-native';
 import { DOMParser } from 'xmldom';
+import { regionState, realmState, factionState } from '../states/SettingsAtoms';
+import { useRecoilValue } from 'recoil';
 
-const getItems = async (days: number, id: number) => {
+const getItems = async (
+  days: number,
+  id: number,
+  realm: number,
+  faction: number,
+  region: string,
+) => {
   const data = await fetch(
-    `http://jeger.co.hu:6555/items?days=${days}&id=${id}`,
+    `http://jeger.co.hu:6555/items?id=${id}&days=${days}&realm=${realm}&faction=${faction}&region=${region}`,
   );
   try {
     const result = await data.json();
@@ -41,6 +49,26 @@ const Auctions = () => {
   const [invalid, setInvalid] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { assets, colors, sizes } = useTheme();
+  const region = useRecoilValue(regionState);
+  const faction = useRecoilValue(factionState) === 'Alliance' ? 2 : 6;
+  const realmName = useRecoilValue(realmState);
+  const [realmId, setRealmId] = useState<number>(4815);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `http://jeger.co.hu:8080/json/${region}_realm_data.json`,
+      );
+      const json: Record<string, IRealmData> = await response.json();
+      const matchingEntry = Object.entries(json).find(
+        ([key, entry]) => entry.name === realmName,
+      );
+      if (matchingEntry) {
+        setRealmId(matchingEntry[1].id);
+      }
+    };
+    fetchData();
+  }, [realmName, region]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,19 +126,23 @@ const Auctions = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getItems(days, id)
+    getItems(days, id, realmId, faction, region)
       .then((result) => {
         setResponseData(result);
+        if (result.length < 1) {
+          setInvalid(true);
+        }
         setIsLoading(false);
       })
       .catch((error) => {
         console.log('USEEFFECT', error);
       });
-  }, [days, id]);
+  }, [days, id, faction, realmId, region]);
 
   useEffect(() => {
     setQueryData(
       responseData.map((item) => ({
+        id: item.id,
         title: name,
         quantity: item.quantity,
         price: item.buyout,
@@ -219,7 +251,7 @@ const Auctions = () => {
           contentContainerStyle={{ paddingBottom: sizes.l }}>
           <Block justify="space-between" marginTop={sizes.sm}>
             {queryData?.map((auctionItem) => (
-              <Auction {...auctionItem} />
+              <Auction {...auctionItem} key={`card-${auctionItem?.id}`} />
             ))}
           </Block>
         </Block>

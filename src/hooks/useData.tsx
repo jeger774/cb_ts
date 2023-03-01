@@ -8,9 +8,9 @@ export const DataContext = React.createContext({});
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<ITheme>(dark);
-  const [notification, setNotification] = useState<INotification>(
-    NOTIFICATIONS[0],
-  );
+  const [notifications, setNotifications] =
+    useState<INotification[]>(NOTIFICATIONS);
+  const [notification, setNotification] = useState<INotification>();
 
   const handleNotification = useCallback(
     (payload: INotification) => {
@@ -24,6 +24,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const contextValue = {
     theme,
     setTheme,
+    notifications,
+    setNotifications,
     notification,
     handleNotification,
   };
