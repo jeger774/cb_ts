@@ -175,6 +175,8 @@ const Charts = () => {
           onSubmitEditing={(event) => {
             setQuery(event.nativeEvent.text);
           }}
+          success={!invalid && query !== ''}
+          danger={invalid}
         />
         <Button
           color={colors.primary}

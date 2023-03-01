@@ -17,9 +17,9 @@ export const COLORS: ThemeColors = {
   /** UI color for #primary */
   primary: '#101010',
   /** UI color for #secondary */
-  secondary: '#303030', // '#8392AB',
+  secondary: '#202020', // '#8392AB',
   /** UI color for #tertiary */
-  tertiary: '#505050',
+  tertiary: '#404040',
 
   // non-colors
   black: '#000000',
@@ -29,7 +29,7 @@ export const COLORS: ThemeColors = {
 
   // gray variations
   /** UI color for #gray */
-  gray: '#404040',
+  gray: '#303030',
 
   // colors variations
   /** UI color for #danger */
@@ -42,8 +42,8 @@ export const COLORS: ThemeColors = {
   info: '#17C1E8',
 
   /** UI colors for navigation & card */
-  card: '#303030',
-  background: '#202020',
+  card: '#202020',
+  background: '#101010',
 
   /** UI color for searchbar */
   searchbar: '#808080',
@@ -72,13 +72,13 @@ export const COLORS: ThemeColors = {
 
 export const GRADIENTS: ThemeGradients = {
   primary: ['#EC9602', '#261100'],
-  secondary: ['#202020', '#404040'],
+  secondary: ['#101010', '#303030'],
   info: ['#21D4FD', '#2152FF'],
   success: ['#98EC2D', '#17AD37'],
   warning: ['#FBCF33', '#F53939'],
   danger: ['#FF667C', '#EA0606'],
 
-  light: ['#101010', '#303030'],
+  light: ['#101010', '#202020'],
 
   white: [String(COLORS.white), '#FFFFFF'],
   black: [String(COLORS.black), '#000000'],
