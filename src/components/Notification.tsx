@@ -4,6 +4,9 @@ import Text from './Text';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { INotification } from '../constants/types';
 import { useTheme } from '../hooks';
+import { Platform } from 'react-native';
+
+const isAndroid = Platform.OS === 'android';
 
 const Auction = ({ id, subject, message }: INotification) => {
   const { sizes } = useTheme();
@@ -14,6 +17,7 @@ const Auction = ({ id, subject, message }: INotification) => {
       card
       flex={0}
       row={true}
+      radius={isAndroid ? 5 : 10}
       marginBottom={sizes.sm}
       paddingHorizontal={sizes.s}
       width={CARD_WIDTH * 2 + sizes.sm}
