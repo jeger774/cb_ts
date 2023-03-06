@@ -31,17 +31,6 @@ export interface IApiResponse {
 export interface IUseData {
   theme: ITheme;
   setTheme: (theme?: ITheme) => void;
-  notifications: INotification[];
-  setNotifications: (data?: INotification[]) => void;
-  notification: INotification[];
-  handleNotification: (data?: INotification[]) => void;
-}
-
-export interface INotification {
-  id: number;
-  subject: string;
-  message: string;
-  //createdAt?: Date;
 }
 
 export interface IRealmData {

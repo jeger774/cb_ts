@@ -24,47 +24,25 @@ export default () => {
     headerRightContainerStyle: { paddingRight: sizes.s },
     cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     headerTitle: ({ children }: StackHeaderTitleProps) => (
-      <Text p>{children}</Text>
+      <Text p semibold>
+        {children}
+      </Text>
     ),
     headerLeft: () => (
       <Button onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
         <Image source={icons.menu} radius={0} color={colors.icon} />
       </Button>
     ),
-    headerRight: () => null,
   } as StackHeaderOptions;
 
   const options = {
     stack: menu,
     components: {
       ...menu,
-      headerTitle: () => (
-        <Text p white>
-          {'Components'}
-        </Text>
-      ),
-      headerRight: () => null,
       headerLeft: () => (
         <Button
           onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
           <Image source={icons.menu} radius={0} color={colors.white} />
-        </Button>
-      ),
-    },
-
-    back: {
-      ...menu,
-      headerRight: () => null,
-      headerLeft: () => (
-        <Button onPress={() => navigation.goBack()}>
-          <Image
-            radius={0}
-            width={10}
-            height={18}
-            color={colors.icon}
-            source={icons.arrow}
-            transform={[{ rotate: '180deg' }]}
-          />
         </Button>
       ),
     },

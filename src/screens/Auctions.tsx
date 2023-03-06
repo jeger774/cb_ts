@@ -12,7 +12,7 @@ import {
 } from '../components';
 import { IAuction, IApiResponse, IRealmData } from '../constants/types';
 import { ActivityIndicator, FlatList } from 'react-native';
-import { DOMParser } from 'xmldom';
+import { DOMParser } from '@xmldom/xmldom';
 import { regionState, realmState, factionState } from '../states/SettingsAtoms';
 import { useRecoilValue } from 'recoil';
 

@@ -5,7 +5,7 @@ import { useTheme } from '../hooks/';
 import { Block, Input, Modal, Text, Image, Button } from '../components/';
 import { IAuctions, IRealmData } from '../constants/types';
 import { LineChart } from 'react-native-chart-kit';
-import { DOMParser } from 'xmldom';
+import { DOMParser } from '@xmldom/xmldom';
 import { regionState, realmState, factionState } from '../states/SettingsAtoms';
 import { useRecoilValue } from 'recoil';
 
@@ -20,11 +20,9 @@ const getItemData = async (
     `http://jeger.co.hu:6555/item?id=${id}&days=${days}&realm=${realm}&faction=${faction}&region=${region}`,
   );
   try {
-    //console.log(data.status);
     const result = await data.json();
     return result;
   } catch (error) {
-    //console.log('GETITEMDATA', error);
     const text = await data.text();
     console.log('Response text:', text);
     return JSON.parse(text);
@@ -148,8 +146,8 @@ const Charts = () => {
   );
 
   const chartConfig = {
-    backgroundGradientFrom: '#202020',
-    backgroundGradientTo: '#202020',
+    backgroundGradientFrom: '#101010',
+    backgroundGradientTo: '#101010',
     fillShadowGradientFrom: '#FF9F00',
     fillShadowGradientTo: '#4A2E00',
     color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -258,7 +256,7 @@ const Charts = () => {
         <SearchHeader />
 
         {/* price charts */}
-        <Block scroll color="#202020" showsVerticalScrollIndicator={true}>
+        <Block scroll color="#101010" showsVerticalScrollIndicator={true}>
           <Text
             h5
             semibold
