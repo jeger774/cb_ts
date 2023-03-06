@@ -1,7 +1,7 @@
 {
   "name": "classicbuddy",
   "main": "node_modules/expo/AppEntry.js",
-  "version": "1.0.0",
+  "version": "1.22.19",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
@@ -29,8 +29,9 @@
     "@types/react-native": "^0.71.0",
     "@types/react-navigation": "^3.4.0",
     "@types/xmldom": "^0.1.31",
+    "@xmldom/xmldom": "~0.8.4",
     "dayjs": "1.10.5",
-    "eas-cli": "^3.5.2",
+    "eas-cli": "3.7.2",
     "expo": "48.0.0",
     "expo-app-loading": "~2.1.1",
     "expo-constants": "^14.2.1",
@@ -41,6 +42,8 @@
     "expo-modules-core": "~1.2.4",
     "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "~1.4.2",
+    "json5": "^2.2.3",
+    "nth-check": "2.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.3",
@@ -57,8 +60,7 @@
     "react-native-xml2js": "^1.0.3",
     "react-scripts": "^5.0.1",
     "recoil": "^0.7.6",
-    "recoil-persist": "^4.2.0",
-    "xmldom": "^0.6.0"
+    "recoil-persist": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
@@ -72,5 +74,6 @@
     "transformIgnorePatterns": [
       "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
     ]
-  }
+  },
+  "packageManager": "yarn@3.4.1"
 }
