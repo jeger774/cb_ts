@@ -2,9 +2,9 @@
   "expo": {
     "name": "Classic Buddy",
     "slug": "classicbuddy",
-    "description": "WoW Classic AH Companion app",
+    "description": "WoW Classic AH Companion application",
     "primaryColor": "#101010",
-    "version": "0.0.1",
+    "version": "1.22.19",
     "orientation": "portrait",
     "icon": "./src/assets/appicons/icon.png",
     "splash": {
