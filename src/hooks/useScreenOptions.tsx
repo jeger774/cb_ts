@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import {
   StackHeaderTitleProps,
   CardStyleInterpolators,
@@ -12,7 +11,6 @@ import Image from '../components/Image';
 import Text from '../components/Text';
 import useTheme from '../hooks/useTheme';
 import Button from '../components/Button';
-import Block from '../components/Block';
 
 export default () => {
   const navigation = useNavigation();
@@ -33,19 +31,7 @@ export default () => {
         <Image source={icons.menu} radius={0} color={colors.icon} />
       </Button>
     ),
-    headerRight: () => (
-      <Block row flex={0} align="center">
-        <TouchableOpacity
-          style={{ marginRight: sizes.sm }}
-          onPress={() =>
-            navigation.navigate('Screens', {
-              screen: 'Notifications',
-            })
-          }>
-          <Image source={icons.bell} radius={0} color={colors.white} />
-        </TouchableOpacity>
-      </Block>
-    ),
+    headerRight: () => null,
   } as StackHeaderOptions;
 
   const options = {
@@ -57,19 +43,7 @@ export default () => {
           {'Components'}
         </Text>
       ),
-      headerRight: () => (
-        <Block row flex={0} align="center">
-          <TouchableOpacity
-            style={{ marginRight: sizes.sm }}
-            onPress={() =>
-              navigation.navigate('Screens', {
-                screen: 'Notifications',
-              })
-            }>
-            <Image source={icons.bell} radius={0} color={colors.white} />
-          </TouchableOpacity>
-        </Block>
-      ),
+      headerRight: () => null,
       headerLeft: () => (
         <Button
           onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
@@ -80,19 +54,7 @@ export default () => {
 
     back: {
       ...menu,
-      headerRight: () => (
-        <Block row flex={0} align="center">
-          <TouchableOpacity
-            style={{ marginRight: sizes.sm }}
-            onPress={() =>
-              navigation.navigate('Screens', {
-                screen: 'Notifications',
-              })
-            }>
-            <Image source={icons.bell} radius={0} color={colors.white} />
-          </TouchableOpacity>
-        </Block>
-      ),
+      headerRight: () => null,
       headerLeft: () => (
         <Button onPress={() => navigation.goBack()}>
           <Image

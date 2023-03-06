@@ -12,11 +12,14 @@
     "lint": "eslint . --ext .ts,.tsx --quiet"
   },
   "dependencies": {
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@babel/plugin-syntax-flow": "7.14.5",
     "@babel/plugin-transform-react-jsx": "7.14.9",
     "@babel/preset-env": "7.1.6",
     "@expo/config-plugins": "~6.0.0",
     "@expo/prebuild-config": "~6.0.0",
+    "@expo/webpack-config": "^18.0.1",
+    "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-masked-view/masked-view": "^0.2.8",
     "@react-navigation/drawer": "5.12.5",
@@ -35,7 +38,7 @@
     "expo-linear-gradient": "~12.1.1",
     "expo-localization": "~14.1.1",
     "expo-modules-autolinking": "^1.1.2",
-    "expo-modules-core": "~1.2.3",
+    "expo-modules-core": "~1.2.4",
     "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "~1.4.2",
     "react": "18.2.0",
@@ -54,6 +57,7 @@
     "react-native-xml2js": "^1.0.3",
     "react-scripts": "^5.0.1",
     "recoil": "^0.7.6",
+    "recoil-persist": "^4.2.0",
     "xmldom": "^0.6.0"
   },
   "devDependencies": {

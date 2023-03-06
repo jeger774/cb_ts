@@ -12,6 +12,7 @@ ios/
 android/
 .vscode/
 yarn-error.log
+eas.json
 
 # macOS
 .DS_Store
