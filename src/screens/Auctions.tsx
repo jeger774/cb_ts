@@ -188,7 +188,7 @@ const Auctions = () => {
           onRequestClose={() => setDaysModal(false)}>
           <FlatList
             keyExtractor={(index) => `${index}`}
-            data={[1, 2, 3, 4, 5]}
+            data={[1, 2]}
             renderItem={({ item }) => (
               <Button
                 marginBottom={sizes.sm}
